@@ -17,5 +17,5 @@ https://data.world/datadavis/nba-salaries/workspace/file?filename=nba_salaries_1
 - NBA Player Salary from basketball-reference.com (2018 - 2019)<br>
 https://web.archive.org/web/20181002194236/www.basketball-reference.com/contracts/players.html
 
-- NBA Yearly Summary (1985 - 2019)
+- NBA Yearly Summary (1985 - 2019)<br>
 https://www.basketball-reference.com/leagues/
