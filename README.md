@@ -120,78 +120,166 @@ Meanwhile, `TOV`, `AST` and `STL` are highly correlated between one another. How
 
 #### Regression Analysis
 
-As `Pos` is categorical variables, we first get dummies for this predictors and fit the full model using all the other players' statistics, such as `Age`,`G`,`GS`,`MP`,`FG` and etc.. Hence, we got the following logistic regression model as follows.
+#### Model Selection
 
-##### Full Model Summary
+- As `Pos` is categorical variables, we first get dummies for this predictors.
+- Since some statistics are calculated by other statistics, there would be strong multicollinearity if we include all of them. Therefore, we drop these following statistics for our first model.
+
+    `TRB` = `ORB` + `DRB` <br>
+    `FGA` = `FG` * `FG_Prct` <br>
+    `Three_PA` = `Three_P` * `Three_P_Prct` <br>
+    `Two_PA` = `Two_P` * `Two_P_Prct` <br>
+    `FTA` = `FT_P` * `FT_Prct`<br>
+    `PTS` = `Three_P` + `Two_P` + `FT_P`<br>
+    `FG` = `Three_P` + `Two_P` <br>
+
+- Then we fit the full model using all the remaining players' statistics, such as `Age`,`G`,`GS`,`MP`and etc.. Hence, we got the following logistic regression model as follows.
+
+##### Full Model Summary - Model 1
 ![Problem 1 Model 1 Summary](plot/regression_1_summary_model1.png)
 
-Given that there are too many variables with high correlation from the heatmap above as well as the there is warnning on multicollinearity, we decided to first use vif to remove variables with max vif values until all the remaining predictors with vif values less than 10.
+Given that there are too many variables with high correlation from the heatmap above as well as the there is warnning on multicollinearity, we decided to first use both VIF Factors and Deviance Test to find removable predictors.
 
-##### Vif analysis on full model
+##### VIF analysis on full model
 
-|   VIF Factor | Features     |
-|-------------:|:------------:|
-|     26.0211  | Age          |
-|     11.3482  | G            |
-|      6.7615  | GS           |
-|     83.4158  | MP           |
-|  17012       | FG           |
-|  34424.3     | FGA          |
-|    954.273   | FG_Prct      |
-|    686.854   | Three_P      |
-|   2536.17    | Three_PA     |
-|      6.35287 | Three_P_Prct |
-|   6836.73    | Two_P        |
-|  22445.9     | Two_PA       |
-|    169.023   | Two_P_Prct   |
-|    785.512   | eFG_Prct     |
-|    979.946   | FT           |
-|    128.659   | FTA          |
-|     25.7676  | FT_Prct      |
-|     11.9941  | ORB          |
-|     18.7982  | DRB          |
-|     12.4838  | AST          |
-|     10.2294  | STL          |
-|      3.98979 | BLK          |
-|     25.5512  | TOV          |
-|     20.8393  | PF           |
-|  21427.7     | PTS          |
-|      2.34968 | Pos_PF       |
-|      4.97383 | Pos_PG       |
-|      3.15486 | Pos_SF       |
-|      4.05631 | Pos_SG       |
+| Features     |   VIF Factor |
+|:-------------|:------------:|
+| Age          |     23.7475  |
+| G            |     11.2644  |
+| GS           |      6.57655 |
+| MP           |     79.4739  |
+| FG_Prct      |    870.907   |
+| Three_P      |      8.40503 |
+| Three_P_Prct |      6.21584 |
+| Two_P        |     22.851   |
+| Two_P_Prct   |    122.755   |
+| eFG_Prct     |    755.823   |
+| FT           |     10.2741  |
+| FT_Prct      |     21.833   |
+| ORB          |     11.5458  |
+| DRB          |     18.2727  |
+| AST          |     12.1883  |
+| STL          |     10.1388  |
+| BLK          |      3.92813 |
+| TOV          |     23.6123  |
+| PF           |     20.7312  |
+| Pos_PF       |      2.29591 |
+| Pos_PG       |      4.82529 |
+| Pos_SF       |      3.03752 |
+| Pos_SG       |      3.895   |
 
-Using a function to remove variables with max vif for every vif analysis, we got these remaining predictors with small vif values finally.
+Using a function to remove a predictor with max VIF for each VIF test while deleting that predictor would not reject H0 in deviance test and thus choose reduced model.
 
-|   VIF Factor | features     |
-|-------------:|:------------:|
-|      7.95085 | G            |
-|      4.94142 | GS           |
-|      3.43524 | Three_P      |
-|      4.71419 | Three_P_Prct |
-|      5.18055 | FT           |
-|      6.44495 | ORB          |
-|      8.28762 | AST          |
-|      9.34177 | STL          |
-|      3.26413 | BLK          |
-|      1.82872 | Pos_PF       |
-|      3.3308  | Pos_PG       |
-|      2.08894 | Pos_SF       |
-|      2.45765 | Pos_SG       |
+Hence, we remove predictors `FG_Prct`, `eFG_Prct`, `TOV`, `Age`, `MP`, `FT_Prct`, `Two_P_Prct`, `ORB`, which both have high VIF factors and the reduced model with low ΔG in a Deviance Test.
 
-So, with these predictors, we then do the reduced model regression. The result is as follows.
+| Features     |   VIF Factor |
+|:-------------|:------------:|
+| Two_P        |     16.2202  |
+| DRB          |     12.2412  |
+| PF           |     12.0968  |
+| STL          |      9.59197 |
+| G            |      9.12068 |
+| FT           |      8.76224 |
+| AST          |      8.3415  |
+| GS           |      5.37419 |
+| Three_P_Prct |      4.76798 |
+| BLK          |      3.78012 |
+| Pos_PG       |      3.45641 |
+| Three_P      |      3.4551  |
+| Pos_SG       |      2.54538 |
+| Pos_SF       |      2.13738 |
+| Pos_PF       |      1.90174 |
 
-##### Reduced Model Summary
+But still there are some remaining predictors with VIF Factor larger than 10.
+
+With these predictors, we run a logistic model again and here is our second model.
+
+##### Reduced Model Summary - Model 2
 ![Problem 1 Model 2 Summary](plot/regression_1_summary_model2.png)
 
 To make sure whether reduced model is better than the full model, we do a deviance test.
 
-Null Hypothesis: Reduced model
+Null Hypothesis: Reduced Model <br>
+Alternative Hypothesis: Full Model
 
-ΔG = ΔG(Reduced Model) - ΔG(Full Model) = 1797 - 1592 = 205
+ ΔG = ΔG(Reduced Model) - ΔG(Full Model) = 13.7661 <br>
+ χ2 = 15.5073
 
 
-On significat level of 0.05, ΔG > \chi^2. Therefore, we should reject
+On significant level of 0.05, ΔG > χ2. Therefore, we cannot reject Null Hypothesis and then choose Model 2.
+
+But as Wald test shows that there still seems some insignificant predictors with p-values larger than 0.05. Therefore, we continue to remove predictors using Deviance Test and Wald Test. Here are removable predictors based on Deviance Test.
+
+| Deviance test|    GS   | Three_P_Prct |  Pos_PG  |  Pos_SG  |
+|:-------------|:-------:|:------------:|:--------:|:--------:|
+| delta_G      | 14.9021 | 14.5091 |14.2247 |14.3993 |
+| chi2_stat    | 16.9190 | 16.9190 |16.9190 |16.9190 |
+
+However, we use position as dummies variables. So, if we drop `Pos_PG` and `Pos_SG`, we need to drop other 2 other variables. In this case, dropping too many predictors, Deviance Test would tell us to stick to the full model.
+
+
+Hence, we only drop variables `GS` and `Three_P_Prct` and keep `Pos` dummies.
+
+##### Reduced Model Summary - Model 3
+![Problem 1 Model 3 Summary](plot/regression_1_summary_model3.png)
+
+So far, here is the main logistic model we'll use.
+
+#### Model Diagnosis
+
+##### Multicollinearity
+
+The VIF table above indicates that there is multicollinearity problem in this model. But we don't choose to drop those predictors with high VIF as both Deviance test and Wald test consider them as significant. So we choose not to drop these predictors.
+
+##### Pearson residuals Plot -- Test Heteroscedasticity
+![Problem 1 Model 3 Pearson residuals Plot](plot/regression_1_residual.png)
+
+From the graph above, we can see there are some "studentized residuals" with absolute values larger than 3, which indicates there may be outliers or influential points causing heteroscedasticity.
+
+To find the outliers and influential points, here we plot residuals as well as cook's distance.
+
+##### Internally Studentized Residuals
+![Problem 1 Model 3 Internally Studentized Residuals](plot/regression_1_abnormal_residuals.png)
+
+##### Cook's Distance
+![Problem 1 Model 3 Cook's Distance](plot/regression_1_cooks.png)
+
+Given cook's distance, Diffits and Studentized Residuals,, here we find 316 influential points. Since 316 observations take only about 5% of the total observations. Therefore, we drop these observations and rerun the model.
+
+#### Final Model - Model 4
+##### Reduced Model Summary - Model 4
+![Problem 1 Model 4 Summary](plot/regression_1_summary_model4.png)
+
+Here is our final model. To confirm that whether it is the best model we have run, we compare AIC and BIC of the above 4 models.
+
+| Model   |  AIC     |      BIC |
+|:--------|---------:|:--------:|
+| Model 1     | 1656.71  | -80147.9 |
+| Model 2     | 1654.48  | -80207   |
+| Model 3     | 1652.39  | -80223.3 |
+| Model 4     |  203.846 | -78484.6 |
+
+Clearly, before dropping outliers and influential points, Model 3 has the lowest AIC and BIC, showing Model 3 is better than Model 1 and Model 2.
+After we drop outliers and influential points, AIC of Model decreases a lot while BIC increases a little bit. So we will choose Model 4 as our final model.
+
+##### Model 4 - Internally Studentized Residuals
+![Problem 1 Model 4 Internally Studentized Residuals](plot/regression_1_final_residual.png)
+
+After removing outliers, the residual plots seems better.
+
+##### Model 4 - π Plot
+![Problem 1 Model 4 π Plot](plot/regression_1_pi.png)
+Here we visualize how π changes with the model.
+
+#### Final Model Analysis and summary
+
+##### Variables
+|  |     Intercept |       G |   Three_P |   Two_P |      FT |     DRB |      AST |     STL |     BLK |       PF |    Pos_PF |   Pos_PG |     Pos_SF |    Pos_SG |
+|-:|--------------:|--------:|----------:|--------:|--------:|--------:|---------:|--------:|--------:|---------:|----------:|---------:|-----------:|:---------:|
+| βi | -43.9893      | 0.1668 |   2.4891| 1.9363 | 1.3466 | 1.0637 | 0.42444 | 1.9159 | 1.3372 | -1.4383  | -1.6189   |  2.3514 | -2.4764  | -0.8487 |
+| e^(βi) |   7.8647e-20 | 1.1816 |  12.0505  | 6.9332 | 3.8442 | 2.8972 | 1.5287  | 6.7931 | 3.8085 |  0.2373 |  0.1981 | 10.5002  |  0.0840 |  0.4280 |
+
+##### Formula
 
 
 
