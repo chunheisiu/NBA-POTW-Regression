@@ -120,6 +120,81 @@ Meanwhile, `TOV`, `AST` and `STL` are highly correlated between one another. How
 
 #### Regression Analysis
 
+As `Pos` is categorical variables, we first get dummies for this predictors and fit the full model using all the other players' statistics, such as `Age`,`G`,`GS`,`MP`,`FG` and etc.. Hence, we got the following logistic regression model as follows.
+
+##### Full Model Summary
+![Problem 1 Model 1 Summary](plot/regression_1_summary_model1.png)
+
+Given that there are too many variables with high correlation from the heatmap above as well as the there is warnning on multicollinearity, we decided to first use vif to remove variables with max vif values until all the remaining predictors with vif values less than 10.
+
+##### Vif analysis on full model
+
+|   VIF Factor | Features     |
+|-------------:|:------------:|
+|     26.0211  | Age          |
+|     11.3482  | G            |
+|      6.7615  | GS           |
+|     83.4158  | MP           |
+|  17012       | FG           |
+|  34424.3     | FGA          |
+|    954.273   | FG_Prct      |
+|    686.854   | Three_P      |
+|   2536.17    | Three_PA     |
+|      6.35287 | Three_P_Prct |
+|   6836.73    | Two_P        |
+|  22445.9     | Two_PA       |
+|    169.023   | Two_P_Prct   |
+|    785.512   | eFG_Prct     |
+|    979.946   | FT           |
+|    128.659   | FTA          |
+|     25.7676  | FT_Prct      |
+|     11.9941  | ORB          |
+|     18.7982  | DRB          |
+|     12.4838  | AST          |
+|     10.2294  | STL          |
+|      3.98979 | BLK          |
+|     25.5512  | TOV          |
+|     20.8393  | PF           |
+|  21427.7     | PTS          |
+|      2.34968 | Pos_PF       |
+|      4.97383 | Pos_PG       |
+|      3.15486 | Pos_SF       |
+|      4.05631 | Pos_SG       |
+
+Using a function to remove variables with max vif for every vif analysis, we got these remaining predictors with small vif values finally.
+
+|   VIF Factor | features     |
+|-------------:|:------------:|
+|      7.95085 | G            |
+|      4.94142 | GS           |
+|      3.43524 | Three_P      |
+|      4.71419 | Three_P_Prct |
+|      5.18055 | FT           |
+|      6.44495 | ORB          |
+|      8.28762 | AST          |
+|      9.34177 | STL          |
+|      3.26413 | BLK          |
+|      1.82872 | Pos_PF       |
+|      3.3308  | Pos_PG       |
+|      2.08894 | Pos_SF       |
+|      2.45765 | Pos_SG       |
+
+So, with these predictors, we then do the reduced model regression. The result is as follows.
+
+##### Reduced Model Summary
+![Problem 1 Model 2 Summary](plot/regression_1_summary_model2.png)
+
+To make sure whether reduced model is better than the full model, we do a deviance test.
+
+Null Hypothesis: Reduced model
+
+ΔG = ΔG(Reduced Model) - ΔG(Full Model) = 1797 - 1592 = 205
+
+
+On significat level of 0.05, ΔG > \chi^2. Therefore, we should reject
+
+
+
 
 ### Problem 2: Relationship between NBA Titles and Player Salary
 
