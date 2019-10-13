@@ -35,48 +35,48 @@ There are 9,003 Rows and 38 Variables in the dataset.
 #### Index of the Dataset
 | Variable | Definition | Type |
 |---|---|---|
-| `Year` | (e.g. `1991` means the NBA 1990 - 1991 Season) | Integer |
-| `Player` | Player name | String |
+| `Year` | (e.g. `1991` means the NBA 1990 - 1991 Season) | Numerical |
+| `Player` | Player name | Categorical |
 
 #### Variables of the Dataset
 | Variable | Definition | Type |
 |---|---|---|
 | `Pos` | Player Position | Categorical |
-| `Age` | Age of Player at the start of February 1st of that season | Integer |
+| `Age` | Age of Player at the start of February 1st of that season | Numerical |
 | `Tm` | Team of Player | Categorical |
-| `G` | Number of games played | Integer |
-| `GS` | Number of games played when the game started | Integer |
-| `MP` | Minutes played per game | Float |
-| `FG` | Field Goals per game | Integer |
-| `FGA` | Field Goal attempts per game | Integer |
-| `FG_Prct` | Field Goal percentage | Float |
-| `Three_P` | 3-Point Field Goals per game | Integer |
-| `Three_PA` | 3-Point Field Goal attempts per game | Integer |
-| `Three_P_Prct` | 3-Point Field Goal percentage | Float |
-| `Two_P` | 2-Point Field Goals per game | Integer |
-| `Two_PA` | 2-Point Field Goal attempts per game | Integer |
-| `Two_P_Prct` | 2-Point Field Goal percentage | Float |
-| `ePF_Prct` | Effective Field Goal percentage<br>_This statistic adjusts for the fact that a 3-point field goal is worth one more point than a 2-point field goal._ | Float |
-| `FT` | Free Throws per game | Integer |
-| `FTA` | Free Throw attempts per game | Integer |
-| `FTA_Prct` | Free Throw percentage | Float |
-| `ORB` | Offensive Rebounds per game | Integer |
-| `DRB` | Defensive Rebounds per game | Integer |
-| `TRB` | Total Rebounds per game | Integer |
-| `AST` | Assists per game | Integer |
-| `STL` | Steals per game | Integer |
-| `BLK` | Blocks per game | Integer |
-| `TOV` | Turnovers per game | Integer |
-| `PF` | Personal Fouls per game | Integer |
-| `PTS` | Points per game | Integer |
-| `Potw` | Was the player named _Player of the Week_ during the season? | Boolean |
-| `APG_Leader` | Was the player named _Assists Per Game Leader_ during the season? | Boolean |
-| `MVP` | Was the player named _Most Valuable Player_ during the season? | Boolean |
-| `PPG_Leader` | Was the player named _Points Per Game Leader_ during the season? | Boolean |
-| `RPG_Leader` | Was the player named _Rebounds Per Game Leader_ during the season? | Boolean |
-| `Rookie` | Was the player named _Rookie of the Year_ during the season? | Boolean |
-| `WS Leader` | Was the player named _Win Shares Leader_ during the season? | Boolean |
-| `Salary` | Player Salary | Integer |
+| `G` | Number of games played | Numerical |
+| `GS` | Number of games played when the game started | Numerical |
+| `MP` | Minutes played per game | Numerical |
+| `FG` | Field Goals per game | Numerical |
+| `FGA` | Field Goal attempts per game | Numerical |
+| `FG_Prct` | Field Goal percentage | Numerical |
+| `Three_P` | 3-Point Field Goals per game | Numerical |
+| `Three_PA` | 3-Point Field Goal attempts per game | Numerical |
+| `Three_P_Prct` | 3-Point Field Goal percentage | Numerical |
+| `Two_P` | 2-Point Field Goals per game | Numerical |
+| `Two_PA` | 2-Point Field Goal attempts per game | Numerical |
+| `Two_P_Prct` | 2-Point Field Goal percentage | Numerical |
+| `ePF_Prct` | Effective Field Goal percentage<br>_This statistic adjusts for the fact that a 3-point field goal is worth one more point than a 2-point field goal._ | Numerical |
+| `FT` | Free Throws per game | Numerical |
+| `FTA` | Free Throw attempts per game | Numerical |
+| `FTA_Prct` | Free Throw percentage | Numerical |
+| `ORB` | Offensive Rebounds per game | Numerical |
+| `DRB` | Defensive Rebounds per game | Numerical |
+| `TRB` | Total Rebounds per game | Numerical |
+| `AST` | Assists per game | Numerical |
+| `STL` | Steals per game | Numerical |
+| `BLK` | Blocks per game | Numerical |
+| `TOV` | Turnovers per game | Numerical |
+| `PF` | Personal Fouls per game | Numerical |
+| `PTS` | Points per game | Numerical |
+| `Potw` | Was the player named _Player of the Week_ during the season? | Binary |
+| `APG_Leader` | Was the player named _Assists Per Game Leader_ during the season? | Binary |
+| `MVP` | Was the player named _Most Valuable Player_ during the season? | Binary |
+| `PPG_Leader` | Was the player named _Points Per Game Leader_ during the season? | Binary |
+| `RPG_Leader` | Was the player named _Rebounds Per Game Leader_ during the season? | Binary |
+| `Rookie` | Was the player named _Rookie of the Year_ during the season? | Binary |
+| `WS Leader` | Was the player named _Win Shares Leader_ during the season? | Binary |
+| `Salary` | Player Salary | Numerical |
 
 ### Statement of Research Problems and Methods
 Using the dataset, we stemmed two main research problems:
