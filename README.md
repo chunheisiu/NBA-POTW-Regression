@@ -103,10 +103,10 @@ Observing the scatter plot, since `Potw` is a binary variable, the scatter plot 
 
 This discrepancy in range is also evident in the difference in frequency between `Potw = 0` and `Potw = 1`.
 
-| `POTW` | Count | Prct |
-|---|---|---|
-| 0 | 8505 | 0.944685 |
-| 1 | 498 | 0.055315 |
+|   Potw |   Count |      Prct |
+|-------:|--------:|:---------:|
+|      0 |    8505 | 0.944685  |
+|      1 |     498 | 0.0553149 |
 
 The frequency table shows that `Potw = 0` accounts for 94% of the data, which is to be expected since the number of players receiving an award would always be significantly smaller than those who did not. However, we are not sure if this would effect the reliability of the models we would build in regression analysis.
 
@@ -117,6 +117,8 @@ We also plotted the correlation using a heatmap.
 Observing the heatmap, there are evidence that multicollinearity might exist. For example, The most correlated variables are `Two_P_Prct` and `FG_Prct`, but this is to be expected since `FG_Prct` is derived from `Two_P_Prct`. Similarly, `eFG_Prct` is derived from `FG_Prct`, so the correlation is high between them. Hence, some of these variables, specifically those that have direct relationships, will need to be removed prior to regression analysis.
 
 Meanwhile, `TOV`, `AST` and `STL` are highly correlated between one another. However, turnovers, assists and steals are basketball moves often performed by point guards, so there might be indirect relationships between these variables. Nonetheless, these correlations would need to be addressed in regression analysis.
+
+#### Regression Analysis
 
 
 ### Problem 2: Relationship between NBA Titles and Player Salary
@@ -131,11 +133,11 @@ Observing the scatter plot, since all of the variables are binary except for `Ye
 
 This change in range may have been affected by the increase in observations over the years.
 
-| Decade | Count |
-|---|---|
-| 1990 | 2416 |
-| 2000 | 2998 |
-| 2010 | 3589 |
+|   Decade |   Count |
+|---------:|:-------:|
+|     1990 |    2416 |
+|     2000 |    2998 |
+|     2010 |    3589 |
 
 From the frequency table, we can clearly see the increase in observations over the seasons. The cause of this is unknown; either there is a steady increase in players, or there is a steady increase in data collected. Nonetheless, this might be worth looking into and be cautious about during regression analysis.
 
@@ -144,3 +146,53 @@ We also plotted the correlation using a heatmap.
 ![Problem 2 Heatmap Plot](plot/eda_2_heatmap.png)
 
 Observing the heatmap, the overall correlation seems pretty low, except for `WS_Leader` and `MVP`. This means that, except for MVP and Win Shares Leader, having one NBA title does not automatically entitled you to another. It also meant that multicollinearity is likely not an issue in regression analysis.
+
+#### Regression Analysis
+
+We first fitted the full model with variables `Year`, `Potw`, `APG_Leader`, `MVP`, `PPG_Leader`, `RPG_Leader`, `Rookie`, `WS_Leader`.
+
+##### Model Summary
+![Problem 2 Model 1 Summary](plot/regression_2_summary_model1.png)
+
+##### ANOVA Table
+| index      |   df |      sum_sq |     mean_sq |          F |         PR(>F) |
+|:-----------|-----:|------------:|------------:|-----------:|:--------------:|
+| Year       |    1 | 2.3164e+16  | 2.3164e+16  | 1330.82    |   7.34954e-272 |
+| Potw       |    1 | 2.21228e+16 | 2.21228e+16 | 1271       |   1.67026e-260 |
+| APG_Leader |    1 | 2.89658e+14 | 2.89658e+14 |   16.6414  |   4.55432e-05  |
+| MVP        |    1 | 3.69627e+14 | 3.69627e+14 |   21.2359  |   4.11687e-06  |
+| PPG_Leader |    1 | 4.0067e+14  | 4.0067e+14  |   23.0193  |   1.6296e-06   |
+| RPG_Leader |    1 | 6.31608e+14 | 6.31608e+14 |   36.2872  |   1.76961e-09  |
+| Rookie     |    1 | 8.00524e+13 | 8.00524e+13 |    4.59918 |   0.032014     |
+| WS_Leader  |    1 | 6.38674e+13 | 6.38674e+13 |    3.66932 |   0.0554546    |
+| Residual   | 8994 | 1.56548e+17 | 1.74058e+13 |  nan       | nan            |
+
+From the model summary and ANOVA table, it is evident that `MVP` and `WS_Leader` are not statistically significant variables based on both t-test and F-test. However, since they are highly correlated, as mentioned above, it is likely that only one of them would need to be remove.
+
+Upon checking the linearity of the model, we found signs of non-linearity from the residual plot.
+
+![Problem 2 Model 1 Residual Plot](plot/regression_2_residual_model1.png)
+
+Hence, we performed a log transformation on `Salary` to attempt to correct the problem. We refitted the full model using the log-transformed data.
+
+##### Model Summary
+![Problem 2 Model 2 Summary](plot/regression_2_summary_model2.png)
+
+##### ANOVA Table
+| index      |   df |       sum_sq |     mean_sq |           F |         PR(>F) |
+|:-----------|-----:|-------------:|------------:|------------:|:--------------:|
+| Year       |    1 |  1709.68     | 1709.68     | 1231.95     |   4.70618e-253 |
+| Potw       |    1 |   926.665    |  926.665    |  667.731    |   4.35078e-142 |
+| APG_Leader |    1 |     6.77177  |    6.77177  |    4.87956  |   0.0272016    |
+| MVP        |    1 |     5.36321  |    5.36321  |    3.86459  |   0.0493459    |
+| PPG_Leader |    1 |     6.68263  |    6.68263  |    4.81533  |   0.0282331    |
+| RPG_Leader |    1 |    22.0516   |   22.0516   |   15.8898   |   6.76709e-05  |
+| Rookie     |    1 |     0.323805 |    0.323805 |    0.233326 |   0.629081     |
+| WS_Leader  |    1 |     1.72901  |    1.72901  |    1.24588  |   0.26437      |
+| Residual   | 8994 | 12481.7      |    1.38778  |  nan        | nan            |
+
+From the model summary, the log-transformed data confirmed the statistical insignificance of `MVP`. Meanwhile, the ANOVA table shows that `Rookie` and `WS_Leader` are also statistically insignificant. We kept that in mind for model selection.
+
+![Problem 2 Model 2 Residual Plot](plot/regression_2_residual_model2.png)
+
+The log-transformed data had seemingly reduced the severity of non-linearity.
