@@ -5,6 +5,7 @@ Project: NBA Player of the Week
 * Shirley Li ([@Shirleyiscool](https://github.com/Shirleyiscool))
 * Charles Siu ([@chunheisiu](https://github.com/chunheisiu))
 
+
 ### Description of Dataset
 Our dataset is a combination of the following datasets with regards to NBA:
 
@@ -30,7 +31,7 @@ https://www.basketball-reference.com/leagues/<br>
 
 Combining the aforementioned datasets, we created a dataset in which, each row is an NBA player per season, and each column is a statistic of the player. We filtered the rows so that only the players who have both statistics and salary data for that particular season are included.
 
-There are 9,003 Rows and 38 Variables in the dataset.
+There are 9,003 Rows and 38 Columns in the dataset.
 
 #### Index of the Dataset
 | Variable | Definition | Type |
@@ -78,6 +79,7 @@ There are 9,003 Rows and 38 Variables in the dataset.
 | `WS Leader` | Was the player named _Win Shares Leader_ during the season? | Binary |
 | `Salary` | Player Salary | Numerical |
 
+
 ### Statement of Research Problems and Methods
 Using the dataset, we stemmed two main research problems:
 - **What player statistic contributes the most to the event that the player is named Player of the Week?**<br>
@@ -88,6 +90,7 @@ Since the salary of a player is a numerical variable, we decided to approach thi
 
 For both problems, model selection was performed to find the optimal model, and model diagnosis was performed to mitigate the possible issues of heteroscedasticity, multicollinearity and autocorrelation.
 
+
 ### Problem 1: Relationship between Player Statistics and Player of the Week
 
 #### Explanatory Analysis
@@ -96,19 +99,48 @@ After extracting the relevant player statistics and Player of the Week from the 
 
 ![Problem 1 Scatter Plot](plot/eda_1_scatter.png)
 
+Observing the scatter plot, since `Potw` is a binary variable, the scatter plot did not give us a lot of useful information, apart from the differences in range of statistic values between the `Potw = 0` and `Potw = 1`. For every statistic, the range of values seems to be smaller for `Potw = 1`, with the most significant variable being `eFG_Prct`.
+
+This discrepancy in range is also evident in the difference in frequency between `Potw = 0` and `Potw = 1`.
+
+| `POTW` | Count | Prct |
+|---|---|---|
+| 0 | 8505 | 0.944685 |
+| 1 | 498 | 0.055315 |
+
+The frequency table shows that `Potw = 0` accounts for 94% of the data, which is to be expected since the number of players receiving an award would always be significantly smaller than those who did not. However, we are not sure if this would effect the reliability of the models we would build in regression analysis.
+
 We also plotted the correlation using a heatmap.
 
 ![Problem 1 Heatmap Plot](plot/eda_1_heatmap.png)
 
+Observing the heatmap, there are evidence that multicollinearity might exist. For example, The most correlated variables are `Two_P_Prct` and `FG_Prct`, but this is to be expected since `FG_Prct` is derived from `Two_P_Prct`. Similarly, `eFG_Prct` is derived from `FG_Prct`, so the correlation is high between them. Hence, some of these variables, specifically those that have direct relationships, will need to be removed prior to regression analysis.
+
+Meanwhile, `TOV`, `AST` and `STL` are highly correlated between one another. However, turnovers, assists and steals are basketball moves often performed by point guards, so there might be indirect relationships between these variables. Nonetheless, these correlations would need to be addressed in regression analysis.
+
 
 ### Problem 2: Relationship between NBA Titles and Player Salary
 
-After extracting the relevant player titles and salary from the dataset, we plotted the relationship between the statistics and Player of the Week using a scatter plot.
-
 #### Explanatory Analysis
 
+After extracting the relevant player titles and salary from the dataset, we plotted the relationship between the titles and salary using a scatter plot.
+
 ![Problem 2 Scatter Plot](plot/eda_2_scatter.png)
+
+Observing the scatter plot, since all of the variables are binary except for `Year`, it is difficult to interpret the relationships using the scatter plot. Looking at the `Year` plot, there is evidently a positive linear relationship between `Year` and `Salary`. What is also interesting about the `Year` graph is that, despite having a positive relationship, the range of values also increased for every season.
+
+This change in range may have been affected by the increase in observations over the years.
+
+| Decade | Count |
+|---|---|
+| 1990 | 2416 |
+| 2000 | 2998 |
+| 2010 | 3589 |
+
+From the frequency table, we can clearly see the increase in observations over the seasons. The cause of this is unknown; either there is a steady increase in players, or there is a steady increase in data collected. Nonetheless, this might be worth looking into and be cautious about during regression analysis.
 
 We also plotted the correlation using a heatmap.
 
 ![Problem 2 Heatmap Plot](plot/eda_2_heatmap.png)
+
+Observing the heatmap, the overall correlation seems pretty low, except for `WS_Leader` and `MVP`. This means that, except for MVP and Win Shares Leader, having one NBA title does not automatically entitled you to another. It also meant that multicollinearity is likely not an issue in regression analysis.
