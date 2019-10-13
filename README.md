@@ -87,3 +87,28 @@ Since whether a player is named Player of the Week is a binary variable, we deci
 Since the salary of a player is a numerical variable, we decided to approach this problem using the multiple linear regression model.
 
 For both problems, model selection was performed to find the optimal model, and model diagnosis was performed to mitigate the possible issues of heteroscedasticity, multicollinearity and autocorrelation.
+
+### Problem 1: Relationship between Player Statistics and Player of the Week
+
+#### Explanatory Analysis
+
+After extracting the relevant player statistics and Player of the Week from the dataset, we plotted the relationship between the statistics and Player of the Week using a scatter plot.
+
+![Problem 1 Scatter Plot](plot/eda_1_scatter.png)
+
+We also plotted the correlation using a heatmap.
+
+![Problem 1 Heatmap Plot](plot/eda_1_heatmap.png)
+
+
+### Problem 2: Relationship between NBA Titles and Player Salary
+
+After extracting the relevant player titles and salary from the dataset, we plotted the relationship between the statistics and Player of the Week using a scatter plot.
+
+#### Explanatory Analysis
+
+![Problem 2 Scatter Plot](plot/eda_2_scatter.png)
+
+We also plotted the correlation using a heatmap.
+
+![Problem 2 Heatmap Plot](plot/eda_2_heatmap.png)
