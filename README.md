@@ -172,6 +172,13 @@ Using a function to remove a predictor with max VIF for each VIF test while dele
 
 Hence, we remove predictors `FG_Prct`, `eFG_Prct`, `TOV`, `Age`, `MP`, `FT_Prct`, `Two_P_Prct`, `ORB`, which both have high VIF factors and the reduced model with low ΔG in a Deviance Test.
 
+
+With these remaining predictors, we run a logistic model again and here is our second model.
+
+##### Reduced Model Summary - Model 2
+![Problem 1 Model 2 Summary](plot/regression_1_summary_model2.png)
+
+
 | Features     |   VIF Factor |
 |:-------------|:------------:|
 | Two_P        |     16.2202  |
@@ -191,11 +198,6 @@ Hence, we remove predictors `FG_Prct`, `eFG_Prct`, `TOV`, `Age`, `MP`, `FT_Prct`
 | Pos_PF       |      1.90174 |
 
 But still there are some remaining predictors with VIF Factor larger than 10.
-
-With these predictors, we run a logistic model again and here is our second model.
-
-##### Reduced Model Summary - Model 2
-![Problem 1 Model 2 Summary](plot/regression_1_summary_model2.png)
 
 To make sure whether reduced model is better than the full model, we do a deviance test.
 
@@ -228,6 +230,22 @@ So far, here is the main logistic model we'll use.
 #### Model Diagnosis
 
 ##### Multicollinearity
+
+| Features   |   VIF Factor |
+|:-----------|:------------:|
+| Two_P      |     15.268   |
+| DRB        |     12.0013  |
+| PF         |     11.9826  |
+| STL        |      9.41759 |
+| FT         |      8.6996  |
+| G          |      8.27271 |
+| AST        |      8.09547 |
+| BLK        |      3.77999 |
+| Pos_PG     |      2.90391 |
+| Three_P    |      2.76944 |
+| Pos_SG     |      2.12558 |
+| Pos_SF     |      1.80177 |
+| Pos_PF     |      1.73616 |
 
 The VIF table above indicates that there is multicollinearity problem in this model. But we don't choose to drop those predictors with high VIF as both Deviance test and Wald test consider them as significant. So we choose not to drop these predictors.
 
