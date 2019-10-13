@@ -85,3 +85,5 @@ Since whether a player is named Player of the Week is a binary variable, we deci
 
 - **What NBA title, including Player of the Week, has the most weight on the salary of the player?**<br>
 Since the salary of a player is a numerical variable, we decided to approach this problem using the multiple linear regression model.
+
+For both problems, model selection was performed to find the optimal model, and model diagnosis was performed to mitigate the possible issues of heteroscedasticity, multicollinearity and autocorrelation.
