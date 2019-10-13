@@ -199,7 +199,6 @@ On significat level of 0.05, ΔG > \chi^2. Therefore, we should reject
 ### Problem 2: Relationship between NBA Titles and Player Salary
 
 #### Explanatory Analysis
-
 After extracting the relevant player titles and salary from the dataset, we plotted the relationship between the titles and salary using a scatter plot.
 
 ![Problem 2 Scatter Plot](plot/eda_2_scatter.png)
@@ -223,7 +222,6 @@ We also plotted the correlation using a heatmap.
 Observing the heatmap, the overall correlation seems pretty low, except for `WS_Leader` and `MVP`. This means that, except for MVP and Win Shares Leader, having one NBA title does not automatically entitled you to another. It also meant that multicollinearity is likely not an issue in regression analysis.
 
 #### Regression Analysis
-
 We first fitted the full model with variables `Year`, `Potw`, `APG_Leader`, `MVP`, `PPG_Leader`, `RPG_Leader`, `Rookie`, `WS_Leader`.
 
 ##### Model Summary
@@ -244,7 +242,7 @@ We first fitted the full model with variables `Year`, `Potw`, `APG_Leader`, `MVP
 
 From the model summary and ANOVA table, it is evident that `MVP` and `WS_Leader` are not statistically significant variables based on both t-test and F-test. However, since they are highly correlated, as mentioned above, it is likely that only one of them would need to be remove.
 
-Upon checking the linearity of the model, we found signs of non-linearity from the residual plot.
+Upon checking for non-linearity of the model, we found signs of non-linearity from the residual plot.
 
 ![Problem 2 Model 1 Residual Plot](plot/regression_2_residual_model1.png)
 
@@ -271,3 +269,101 @@ From the model summary, the log-transformed data confirmed the statistical insig
 ![Problem 2 Model 2 Residual Plot](plot/regression_2_residual_model2.png)
 
 The log-transformed data had seemingly reduced the severity of non-linearity.
+
+#### Model Selection
+We then proceeded to Model Selection using Adjusted R-Squared, Mallow's CP, AIC, and BIC.
+
+##### Best Subset Regression Table
+|   index |   Number of Predictors |   Adjusted R-Squared |   Mallows CP | Predictors                                                        |     AIC |     BIC |
+|--------:|-----------------------:|---------------------:|-------------:|:------------------------------------------------------------------|--------:|:-------:|
+|     225 |                      6 |             0.176143 |      5.31422 | Year, Potw, APG_Leader, PPG_Leader, RPG_Leader, WS_Leader         | 28505.1 | 28554.8 |
+|     166 |                      5 |             0.176011 |      5.75517 | Year, Potw, APG_Leader, PPG_Leader, RPG_Leader                    | 28505.5 | 28548.1 |
+|     218 |                      6 |             0.176037 |      6.47921 | Year, Potw, APG_Leader, MVP, PPG_Leader, RPG_Leader               | 28506.2 | 28556   |
+|     250 |                      7 |             0.176073 |      7.08048 | Year, Potw, APG_Leader, PPG_Leader, RPG_Leader, Rookie, WS_Leader | 28506.8 | 28563.7 |
+|     247 |                      7 |             0.176059 |      7.23564 | Year, Potw, APG_Leader, MVP, PPG_Leader, RPG_Leader, WS_Leader    | 28507   | 28563.8 |
+
+From this table, we can see that, the models with 5 and 6 predictors performed relatively similar. They differ in whether `WS_Leader` is included as a variable. It is noted above that `WS_Leader` might be insignificant as shown in the F-test result. We chose to regress both models and compare.
+
+Regressing the model with 6 variables, we got the following results.
+
+##### Model Summary
+![Problem 2 Model 3 Summary](plot/regression_2_summary_model3.png)
+
+##### ANOVA Table
+| index      |   df |      sum_sq |    mean_sq |          F |         PR(>F) |
+|:-----------|-----:|------------:|-----------:|-----------:|:--------------:|
+| Year       |    1 |  1709.68    | 1709.68    | 1232.18    |   4.21791e-253 |
+| Potw       |    1 |   926.665   |  926.665   |  667.856   |   4.09393e-142 |
+| APG_Leader |    1 |     6.77177 |    6.77177 |    4.88048 |   0.0271872    |
+| PPG_Leader |    1 |    10.0137  |   10.0137  |    7.21698 |   0.00723497   |
+| RPG_Leader |    1 |    22.3129  |   22.3129  |   16.0811  |   6.11763e-05  |
+| WS_Leader  |    1 |     3.38751 |    3.38751 |    2.44141 |   0.118205     |
+| Residual   | 8996 | 12482.1     |    1.38752 |  nan       | nan            |
+
+Regressing the model with 5 variables, we got the following results.
+
+##### Model Summary
+![Problem 2 Model 4 Summary](plot/regression_2_summary_model4.png)
+
+##### ANOVA Table
+| index      |   df |      sum_sq |    mean_sq |          F |         PR(>F) |
+|:-----------|-----:|------------:|-----------:|-----------:|:--------------:|
+| Year       |    1 |  1709.68    | 1709.68    | 1231.98    |   4.58256e-253 |
+| Potw       |    1 |   926.665   |  926.665   |  667.749   |   4.29787e-142 |
+| APG_Leader |    1 |     6.77177 |    6.77177 |    4.8797  |   0.0271995    |
+| PPG_Leader |    1 |    10.0137  |   10.0137  |    7.21582 |   0.00723963   |
+| RPG_Leader |    1 |    22.3129  |   22.3129  |   16.0786  |   6.12594e-05  |
+| Residual   | 8997 | 12485.5     |    1.38774 |  nan       | nan            |
+
+It is clear that the model `Salary` ~ `Year` + `Potw` + `APG_Leader` + `PPG_Leader` + `RPG_Leader` performed better without `WS_Leader`, as shown in t-test and F-test results in the model summary and ANOVA table.
+
+#### Model Diagnosis
+We first checked whether influential points exist in the model.
+
+![Problem 2 Influence](plot/regression_2_influence.png)
+
+From the influence plot, it is evident that some of the observations are influential. After calculating the Cook's Distance for each observation, we found that 134 observations are influential under the `4 / n - p` heuristic threshold. We decided not to remove them, since they may lead to some insights about the model.
+
+We then check for heteroscedasticity using the Breusch-Pagan test.
+
+##### Breusch-Pagan Test Results
+|   LM Statistic |   LM-Test p-value |   F-Statistic |   F-Test p-value |
+|---------------:|------------------:|--------------:|:----------------:|
+|         131.12 |        1.3766e-26 |       26.5939 |      8.87478e-27 |
+
+From the p-values of LM-test and F-test in the Breusch-Pagan test, we determined that, it is unlikely that the model suffers from heteroscedasticity.
+
+We then check for multicollinearity using both the Breusch-Godfrey test and VIF.
+
+##### Breusch-Godfrey Results
+|   LM Statistic |   LM-Test p-value |   F-Statistic |   F-Test p-value |
+|---------------:|------------------:|--------------:|:----------------:|
+|        209.138 |       2.76112e-26 |       5.91981 |      1.25427e-26 |
+
+##### VIF Test Results
+|   VIF Factor | Features   |
+|-------------:|:----------:|
+|      1.0598  | Year       |
+|      1.12948 | Potw       |
+|      1.00912 | APG_Leader |
+|      1.04567 | PPG_Leader |
+|      1.02037 | RPG_Leader |
+
+From the p-values of LM-test and F-test in the Breusch-Godfrey test, as well as the VIF factors from the VIF test result, we determined that, it is unlikely that the model suffers from multicollinearity.
+
+We finally checked for non-normality using QQ plot.
+
+![Problem 2 Normality](plot/regression_2_normality.png)
+
+From the QQ plot, we determined that, it is unlikely that the model suffers from non-normality.
+
+#### Final Model Summary
+##### Variables
+|   Intercept |      Year |    Potw |   APG_Leader |   PPG_Leader |   RPG_Leader |
+|------------:|----------:|--------:|-------------:|-------------:|:------------:|
+|    -88.1045 | 0.0510719 | 1.33466 |     0.684587 |     0.675161 |     0.901754 |
+
+##### Formula
+![Equation](plot/model_2_formula1.png)
+
+![Equation](plot/model_2_formula2.png)
