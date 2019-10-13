@@ -56,7 +56,7 @@ There are 9,003 Rows and 38 Variables in the dataset.
 | `Two_P` | 2-Point Field Goals per game | Integer |
 | `Two_PA` | 2-Point Field Goal attempts per game | Integer |
 | `Two_P_Prct` | 2-Point Field Goal percentage | Float |
-| `ePF_Prct` | Effective Field Goal percentage.<br>_This statistic adjusts for the fact that a 3-point field goal is worth one more point than a 2-point field goal._ | Float |
+| `ePF_Prct` | Effective Field Goal percentage<br>_This statistic adjusts for the fact that a 3-point field goal is worth one more point than a 2-point field goal._ | Float |
 | `FT` | Free Throws per game | Integer |
 | `FTA` | Free Throw attempts per game | Integer |
 | `FTA_Prct` | Free Throw percentage | Float |
@@ -69,8 +69,19 @@ There are 9,003 Rows and 38 Variables in the dataset.
 | `TOV` | Turnovers per game | Integer |
 | `PF` | Personal Fouls per game | Integer |
 | `PTS` | Points per game | Integer |
+| `Potw` | Was the player named _Player of the Week_ during the season? | Boolean |
+| `APG_Leader` | Was the player named _Assists Per Game Leader_ during the season? | Boolean |
+| `MVP` | Was the player named _Most Valuable Player_ during the season? | Boolean |
+| `PPG_Leader` | Was the player named _Points Per Game Leader_ during the season? | Boolean |
+| `RPG_Leader` | Was the player named _Rebounds Per Game Leader_ during the season? | Boolean |
+| `Rookie` | Was the player named _Rookie of the Year_ during the season? | Boolean |
+| `WS Leader` | Was the player named _Win Shares Leader_ during the season? | Boolean |
+| `Salary` | Player Salary | Integer |
 
 ### Statement of Research Problems and Methods
 Using the dataset, we stemmed two main research problems:
-- What player statistic contributes the most to the event that the player is named Player of the Week?
-- What NBA title, including Player of the Week, has the most weight on the salary of the player?
+- **What player statistic contributes the most to the event that the player is named Player of the Week?**<br>
+Since whether a player is named Player of the Week is a binary variable, we decided to approach this problem using the logistic regression model.
+
+- **What NBA title, including Player of the Week, has the most weight on the salary of the player?**<br>
+Since the salary of a player is a numerical variable, we decided to approach this problem using the multiple linear regression model.
