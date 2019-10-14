@@ -503,9 +503,10 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 
 #### Final Model Summary
 ##### Variables
-|   Intercept |      Year |    Potw |   APG_Leader |   PPG_Leader |   RPG_Leader |
-|------------:|----------:|--------:|-------------:|-------------:|:------------:|
-|    -88.1045 | 0.0510719 | 1.33466 |     0.684587 |     0.675161 |     0.901754 |
+| |     Intercept |      Year |    Potw |   APG_Leader |   PPG_Leader |   RPG_Leader |
+|-:|--------------:|----------:|--------:|-------------:|-------------:|:------------:|
+| βi | -88.1045      | 0.0510719 | 1.33466 |     0.684587 |     0.675161 |     0.901754 |
+| e^(βi) |   5.45361e-39 | 1.0524    | 3.79872 |     1.98295  |     1.96435  |     2.46392  |
 
 ##### Formula
 ![Equation](plot/model_2_formula1.png)
