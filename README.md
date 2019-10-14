@@ -9,24 +9,24 @@ Project: NBA Player of the Week
 ### Description of Dataset
 Our dataset is a combination of the following datasets with regards to NBA:
 
-- NBA Player of the Week (1985 - 2019)<br>
-https://www.kaggle.com/jacobbaruch/nba-player-of-the-week<br>
+- NBA Player of the Week (1985 - 2019)  
+https://www.kaggle.com/jacobbaruch/nba-player-of-the-week  
 1,187 Rows, 14 Columns
 
-- NBA Player Salary from basketball-reference.com (1991 - 2017)<br>
-https://www.kaggle.com/whitefero/nba-player-salary-19902017<br>
+- NBA Player Salary from basketball-reference.com (1991 - 2017)  
+https://www.kaggle.com/whitefero/nba-player-salary-19902017  
 11,837 Rows, 7 Columns
 
-- NBA Player Salary from basketball-reference.com (2018 - 2019)<br>
-https://web.archive.org/web/20181002194236/www.basketball-reference.com/contracts/players.html<br>
+- NBA Player Salary from basketball-reference.com (2018 - 2019)  
+https://web.archive.org/web/20181002194236/www.basketball-reference.com/contracts/players.html  
 578 Rows, 11 Columns
 
-- NBA Player Statistics (1985 - 2019)<br>
-https://www.basketball-reference.com/leagues/<br>
+- NBA Player Statistics (1985 - 2019)  
+https://www.basketball-reference.com/leagues/  
 18,480 Rows, 30 Columns
 
-- NBA Yearly Summary (1985 - 2019)<br>
-https://www.basketball-reference.com/leagues/<br>
+- NBA Yearly Summary (1985 - 2019)  
+https://www.basketball-reference.com/leagues/  
 35 Rows, 8 Columns
 
 Combining the aforementioned datasets, we created a dataset in which, each row is an NBA player per season, and each column is a statistic of the player. We filtered the rows so that only the players who have both statistics and salary data for that particular season are included.
@@ -57,7 +57,7 @@ There are 9,003 Rows and 38 Columns in the dataset.
 | `Two_P` | 2-Point Field Goals per game | Numerical |
 | `Two_PA` | 2-Point Field Goal attempts per game | Numerical |
 | `Two_P_Prct` | 2-Point Field Goal percentage | Numerical |
-| `ePF_Prct` | Effective Field Goal percentage<br>_This statistic adjusts for the fact that a 3-point field goal is worth one more point than a 2-point field goal._ | Numerical |
+| `ePF_Prct` | Effective Field Goal percentage | Numerical |
 | `FT` | Free Throws per game | Numerical |
 | `FTA` | Free Throw attempts per game | Numerical |
 | `FTA_Prct` | Free Throw percentage | Numerical |
@@ -82,10 +82,10 @@ There are 9,003 Rows and 38 Columns in the dataset.
 
 ### Statement of Research Problems and Methods
 Using the dataset, we stemmed two main research problems:
-- **What player statistic contributes the most to the event that the player is named Player of the Week?**<br>
+- **What player statistic contributes the most to the event that the player is named Player of the Week?**  
 Since whether a player is named Player of the Week is a binary variable, we decided to approach this problem using the logistic regression model.
 
-- **What NBA title, including Player of the Week, has the most weight on the salary of the player?**<br>
+- **What NBA title, including Player of the Week, has the most weight on the salary of the player?**  
 Since the salary of a player is a numerical variable, we decided to approach this problem using the multiple linear regression model.
 
 For both problems, model selection was performed to find the optimal model, and model diagnosis was performed to mitigate the possible issues of heteroscedasticity, multicollinearity and autocorrelation.
@@ -125,13 +125,13 @@ Meanwhile, `TOV`, `AST` and `STL` are highly correlated between one another. How
 - As `Pos` is categorical variables, we first get dummies for this predictors.
 - Since some statistics are calculated by other statistics, there would be strong multicollinearity if we include all of them. Therefore, we drop these following statistics for our first model.
 
-    `TRB` = `ORB` + `DRB` <br>
-    `FGA` = `FG` * `FG_Prct` <br>
-    `Three_PA` = `Three_P` * `Three_P_Prct` <br>
-    `Two_PA` = `Two_P` * `Two_P_Prct` <br>
-    `FTA` = `FT_P` * `FT_Prct`<br>
-    `PTS` = `Three_P` + `Two_P` + `FT_P`<br>
-    `FG` = `Three_P` + `Two_P` <br>
+    `TRB` = `ORB` + `DRB`   
+    `FGA` = `FG` * `FG_Prct`   
+    `Three_PA` = `Three_P` * `Three_P_Prct`   
+    `Two_PA` = `Two_P` * `Two_P_Prct`   
+    `FTA` = `FT_P` * `FT_Prct`  
+    `PTS` = `Three_P` + `Two_P` + `FT_P`  
+    `FG` = `Three_P` + `Two_P`   
 
 - Then we fit the full model using all the remaining players' statistics, such as `Age`,`G`,`GS`,`MP`and etc.. Hence, we got the following logistic regression model as follows.
 
@@ -201,10 +201,10 @@ But still there are some remaining predictors with VIF Factor larger than 10.
 
 To make sure whether reduced model is better than the full model, we do a deviance test.
 
-Null Hypothesis: Reduced Model <br>
+Null Hypothesis: Reduced Model   
 Alternative Hypothesis: Full Model
 
- ΔG = ΔG(Reduced Model) - ΔG(Full Model) = 13.7661 <br>
+ ΔG = ΔG(Reduced Model) - ΔG(Full Model) = 13.7661   
  χ2 = 15.5073
 
 
@@ -287,6 +287,7 @@ After removing outliers, the residual plots seems better.
 
 ##### Model 4 - π Plot
 ![Problem 1 Model 4 π Plot](plot/regression_1_pi.png)
+
 Here we visualize how π changes with the model.
 
 #### Final Model Summary
