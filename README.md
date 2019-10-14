@@ -301,6 +301,30 @@ Here we visualize how π changes with the model.
 ![Equation](plot/model_1_formula2.png)
 
 
+
+##### Interpretation of Model
+
+- `Intercept`: the probability for a player win the award Player of the Week is **7.8647e-20**, which is super small.
+- `G` : While controlling other variables, the odds for a player, who plays 1 more game, to win the POTW increase **18%**.
+- `Three_P`: While controlling other variables, the odds for a player who can have one more 3-Point Field Goals per game, to win the POTW increase about **11** times.
+- `Two_P`: While controlling other variables, the odds for a player, who can have one more 2-point field goals per game, to win the POTW increase about **6** times.
+- `FT`: While controlling other variables, the odds for a player, who can have one more free throw per game, to win the POTW increase about **2.8** times.
+- `DRB`: While controlling other variables, the odds for a player, who can have one more defensive rebounds per game, to win the POTW increase about **1.9** times.
+- `AST`: While controlling other variables, the odds for a player, who can have one more assists per game, to win the POTW increase about **53%**.
+- `STL`: While controlling other variables, the odds for a player, who can have one more steals per game, to win the POTW increase about **5.8** times.
+- `BLK`: While controlling other variables, the odds for a player, who can have one more blocks per game, to win the POTW increase about **2.8** times.
+- `PF`: While controlling other variables, the odds for a player, who can have one more personal fouls per game, to win the POTW decrease about **77%**.
+- `Pos_PF`: While controlling other variables, the odds for a power forward is **80%** less than center.
+- `Pos_PG`: While controlling other variables, the odds for a points guard is **9.5** times more than center.
+- `Pos_SF`: While controlling other variables, the odds for a small forward is **92%** less than center.
+- `Pos_SG`: While controlling other variables, the odds for a shooting guard is **57%** less than center.
+
+To summarize, the model indicates that **3-Point Field Goals per game** attach the most importance to decide whether a player could get player of the week. Besides, the chance for a **point guard** to win player of the week is larger than other players. If a player wants to increase his chance of winning player of the week, increasing **2-point field goals per game**, **free throw per game**,**steals**,**assists**,**blocks** and **defensive rebounds** as well as decreasing **personal fouls** would be recommended.
+
+##### Prediction of Model
+
+
+
 ### Problem 2: Relationship between NBA Titles and Player Salary
 
 #### Explanatory Analysis
@@ -486,3 +510,5 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 ##### Formula
 ![Equation](plot/model_2_formula1.png)
 ![Equation](plot/model_2_formula2.png)
+
+##### Interpretation of Model
