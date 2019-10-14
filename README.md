@@ -539,3 +539,7 @@ The result shows that the average salary for NBA player is about 3.47 millions i
 
 
 ### Summary
+
+The first model shows us how player's performance can predict whether a player could win POTW. Despite unfixable multicollinearity, this logistic model is fitted with many important predictors such as 3-points field goals and 2 points field goals, quantitatively giving us a way to predict the chance of a player to get POTW based on his statistics.
+
+The second model fits well and indicate the relationship between player's awards and his salaries. Unexpectedly, NBA player's salary would be higher if he could win POTW, PPG Leader, RPG Leader and so on. However, MVP and WS Leader seems not so significant and thus are excluded in the model. We assume that it might be due to time lag and awards might better reflect next year's salary. This is what we could improve for the further research.
