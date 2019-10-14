@@ -297,10 +297,7 @@ Here we visualize how π changes with the model.
 | e^(βi) |   7.8647e-20 | 1.1816 |  12.0505  | 6.9332 | 3.8442 | 2.8972 | 1.5287  | 6.7931 | 3.8085 |  0.2373 |  0.1981 | 10.5002  |  0.0840 |  0.4280 |
 
 ##### Formula
-![Equation](plot/model_1_formula1.png)
-![Equation](plot/model_1_formula2.png)
-
-
+![Equation](plot/model_1_formula.png)
 
 ##### Interpretation of Model
 
@@ -509,7 +506,6 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 | e^(βi) |   5.45361e-39 | 1.0524    | 3.79872 |     1.98295  |     1.96435  |     2.46392  |
 
 ##### Formula
-![Equation](plot/model_2_formula1.png)
-![Equation](plot/model_2_formula2.png)
+![Equation](plot/model_2_formula.png)
 
 ##### Interpretation of Model
