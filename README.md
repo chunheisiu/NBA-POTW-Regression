@@ -289,8 +289,7 @@ After removing outliers, the residual plots seems better.
 ![Problem 1 Model 4 π Plot](plot/regression_1_pi.png)
 Here we visualize how π changes with the model.
 
-#### Final Model Analysis and summary
-
+#### Final Model Summary
 ##### Variables
 |  |     Intercept |       G |   Three_P |   Two_P |      FT |     DRB |      AST |     STL |     BLK |       PF |    Pos_PF |   Pos_PG |     Pos_SF |    Pos_SG |
 |-:|--------------:|--------:|----------:|--------:|--------:|--------:|---------:|--------:|--------:|---------:|----------:|---------:|-----------:|:---------:|
@@ -298,8 +297,8 @@ Here we visualize how π changes with the model.
 | e^(βi) |   7.8647e-20 | 1.1816 |  12.0505  | 6.9332 | 3.8442 | 2.8972 | 1.5287  | 6.7931 | 3.8085 |  0.2373 |  0.1981 | 10.5002  |  0.0840 |  0.4280 |
 
 ##### Formula
-
-
+![Equation](plot/model_1_formula1.png)
+![Equation](plot/model_1_formula2.png)
 
 
 ### Problem 2: Relationship between NBA Titles and Player Salary
@@ -377,7 +376,7 @@ From the model summary, the log-transformed data confirmed the statistical insig
 The log-transformed data had seemingly reduced the severity of non-linearity.
 
 #### Model Selection
-We then proceeded to Model Selection using Adjusted R-Squared, Mallow's CP, AIC, and BIC.
+We then proceeded to Model Selection using Adjusted R², Mallow's CP, AIC, and BIC.
 
 ##### Best Subset Regression Table
 |   index |   Number of Predictors |   Adjusted R-Squared |   Mallows CP | Predictors                                                        |     AIC |     BIC |
@@ -428,9 +427,24 @@ We first checked whether influential points exist in the model.
 
 ![Problem 2 Influence](plot/regression_2_influence.png)
 
-From the influence plot, it is evident that some of the observations are influential. After calculating the Cook's Distance for each observation, we found that 134 observations are influential under the `4 / n - p` heuristic threshold. We decided not to remove them, since they may lead to some insights about the model.
+From the influence plot, it is evident that some of the observations are influential. After calculating the Cook's Distance for each observation, we found that 134 observations are influential under the `4 / n - p` heuristic threshold, which is 1.49% of the data. We attempted remove these outliers and refit the model.
 
-We then check for heteroscedasticity using the Breusch-Pagan test.
+##### Model Summary
+![Problem 2 Model 5 Summary](plot/regression_2_summary_model5.png)
+
+##### ANOVA Table
+| index      |   df |      sum_sq |    mean_sq |           F |         PR(>F) |
+|:-----------|-----:|------------:|-----------:|------------:|:--------------:|
+| Year       |    1 |  1866.2     | 1866.2     | 1483.66     |   2.92382e-300 |
+| Potw       |    1 |   935.444   |  935.444   |  743.696    |   2.5721e-157  |
+| APG_Leader |    1 |     1.04749 |    1.04749 |    0.832772 |   0.361497     |
+| PPG_Leader |    1 |     4.77119 |    4.77119 |    3.79319  |   0.051493     |
+| RPG_Leader |    1 |     9.06309 |    9.06309 |    7.20534  |   0.00728222   |
+| Residual   | 8863 | 11148.1     |    1.25783 |  nan        | nan            |
+
+Observing the model summary and the ANOVA table, it seems that `APG_Leader` and `PPG_Leader` were rendered statistically insignificant after the removal of outliers. We don't believe that dropping more variables is the right approach, so we kept the outliers in the final mode and proceeded.
+
+We then checked for heteroscedasticity using the Breusch-Pagan test.
 
 ##### Breusch-Pagan Test Results
 |   LM Statistic |   LM-Test p-value |   F-Statistic |   F-Test p-value |
@@ -439,7 +453,7 @@ We then check for heteroscedasticity using the Breusch-Pagan test.
 
 From the p-values of LM-test and F-test in the Breusch-Pagan test, we determined that, it is unlikely that the model suffers from heteroscedasticity.
 
-We then check for multicollinearity using both the Breusch-Godfrey test and VIF.
+We then checked for multicollinearity using both the Breusch-Godfrey test and VIF.
 
 ##### Breusch-Godfrey Results
 |   LM Statistic |   LM-Test p-value |   F-Statistic |   F-Test p-value |
@@ -447,13 +461,13 @@ We then check for multicollinearity using both the Breusch-Godfrey test and VIF.
 |        209.138 |       2.76112e-26 |       5.91981 |      1.25427e-26 |
 
 ##### VIF Test Results
-|   VIF Factor | Features   |
-|-------------:|:----------:|
-|      1.0598  | Year       |
-|      1.12948 | Potw       |
-|      1.00912 | APG_Leader |
-|      1.04567 | PPG_Leader |
-|      1.02037 | RPG_Leader |
+| Features   |   VIF Factor |
+|:-----------|:------------:|
+| Year       |      1.0598  |
+| Potw       |      1.12948 |
+| APG_Leader |      1.00912 |
+| PPG_Leader |      1.04567 |
+| RPG_Leader |      1.02037 |
 
 From the p-values of LM-test and F-test in the Breusch-Godfrey test, as well as the VIF factors from the VIF test result, we determined that, it is unlikely that the model suffers from multicollinearity.
 
@@ -471,5 +485,4 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 
 ##### Formula
 ![Equation](plot/model_2_formula1.png)
-
 ![Equation](plot/model_2_formula2.png)
