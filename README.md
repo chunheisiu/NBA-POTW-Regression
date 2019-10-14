@@ -417,7 +417,7 @@ The log-transformed data had seemingly reduced the severity of non-linearity.
 We then proceeded to Model Selection using Adjusted R², Mallow's CP, AIC, and BIC.
 
 ##### Best Subset Regression Table
-|   index |   # of Predictors |   Adjusted R² |   Mallows CP | Predictors                                                        |     AIC |     BIC |
+|   index |   Predictors |   Adjusted R² |   Mallows CP | Predictors                                                        |     AIC |     BIC |
 |--------:|-----------------------:|---------------------:|-------------:|:------------------------------------------------------------------|--------:|:-------:|
 |     225 |                      6 |             0.176143 |      5.31422 | Year, Potw, APG_Leader, PPG_Leader, RPG_Leader, WS_Leader         | 28505.1 | 28554.8 |
 |     166 |                      5 |             0.176011 |      5.75517 | Year, Potw, APG_Leader, PPG_Leader, RPG_Leader                    | 28505.5 | 28548.1 |
