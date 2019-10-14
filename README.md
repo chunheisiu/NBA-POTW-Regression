@@ -291,10 +291,10 @@ Here we visualize how π changes with the model.
 
 #### Final Model Summary
 ##### Variables
-|  |     Intercept |       G |   Three_P |   Two_P |      FT |     DRB |      AST |     STL |     BLK |       PF |    Pos_PF |   Pos_PG |     Pos_SF |    Pos_SG |
-|-:|--------------:|--------:|----------:|--------:|--------:|--------:|---------:|--------:|--------:|---------:|----------:|---------:|-----------:|:---------:|
-| βi | -43.9893      | 0.1668 |   2.4891| 1.9363 | 1.3466 | 1.0637 | 0.42444 | 1.9159 | 1.3372 | -1.4383  | -1.6189   |  2.3514 | -2.4764  | -0.8487 |
-| e^(βi) |   7.8647e-20 | 1.1816 |  12.0505  | 6.9332 | 3.8442 | 2.8972 | 1.5287  | 6.7931 | 3.8085 |  0.2373 |  0.1981 | 10.5002  |  0.0840 |  0.4280 |
+| Type   |     Intercept |       G |   Three_P |   Two_P |      FT |     DRB |      AST |     STL |     BLK |       PF |    Pos_PF |   Pos_PG |     Pos_SF |    Pos_SG |
+|:-------|--------------:|--------:|----------:|--------:|--------:|--------:|---------:|--------:|--------:|---------:|----------:|---------:|-----------:|:---------:|
+| βi     | -43.9893      | 0.16684 |   2.48911 | 1.93632 | 1.34657 | 1.06373 | 0.424438 | 1.91591 | 1.33724 | -1.4383  | -1.6189   |  2.35139 | -2.47636   | -0.848657 |
+| e^(βi) |   7.86469e-20 | 1.18157 |  12.0505  | 6.93322 | 3.84421 | 2.89715 | 1.52873  | 6.79309 | 3.80851 |  0.23733 |  0.198117 | 10.5002  |  0.0840489 |  0.427989 |
 
 ##### Formula
 ![Equation](plot/model_1_formula.png)
@@ -316,11 +316,15 @@ Here we visualize how π changes with the model.
 - `Pos_SF`: While controlling other variables, the odds for a small forward is **92%** less than center.
 - `Pos_SG`: While controlling other variables, the odds for a shooting guard is **57%** less than center.
 
-To summarize, the model indicates that **3-Point Field Goals per game** attach the most importance to decide whether a player could get player of the week. Besides, the chance for a **point guard** to win player of the week is larger than other players. If a player wants to increase his chance of winning player of the week, increasing **2-point field goals per game**, **free throw per game**,**steals**,**assists**,**blocks** and **defensive rebounds** as well as decreasing **personal fouls** would be recommended.
+To summarize, the model indicates that **3-Point Field Goals per game** attach the most importance to decide whether a player could get player of the week. Besides, the chance for a **point guard** to win player of the week is larger than other players. If a player wants to increase his chance of winning player of the week, increasing **2-point field goals per game**, **free throw per game**, **steals**, **assists**, **blocks** and **defensive rebounds** as well as decreasing **personal fouls** would be recommended.
 
 ##### Prediction of Model
+|   Intercept |   G |   Three_P |   Two_P |   FT |   DRB |   AST |   STL |   BLK |   PF |   Pos_PF |   Pos_PG |   Pos_SF |   Pos_SG |   Predicted πi |
+|------------:|----:|----------:|--------:|-----:|------:|------:|------:|------:|-----:|---------:|---------:|---------:|---------:|:--------------:|
+|           1 |  56 |       0.9 |     2.1 |    1 |   2.5 |   1.5 |   0.6 |   0.3 |  1.9 |        0 |        0 |        0 |        0 |              0 |
+|           1 |  82 |       5.1 |     9.3 |    0 |  11.1 |  10.7 |   2.4 |   2.7 |  3.8 |        0 |        1 |        0 |        0 |              1 |
 
-
+We use the median statistic of 2019 and max statistic of 2019 to do prediction. As a result, the probability of a player with median performance has 0% chance to win POTW while a player with max performance has 99.99% chance to win POTW. This prediction successfully indicates our model can predict whether a player could win POTW based on his performance to some extent.
 
 ### Problem 2: Relationship between NBA Titles and Player Salary
 
@@ -500,9 +504,9 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 
 #### Final Model Summary
 ##### Variables
-| |     Intercept |      Year |    Potw |   APG_Leader |   PPG_Leader |   RPG_Leader |
-|-:|--------------:|----------:|--------:|-------------:|-------------:|:------------:|
-| βi | -88.1045      | 0.0510719 | 1.33466 |     0.684587 |     0.675161 |     0.901754 |
+| Type   |     Intercept |      Year |    Potw |   APG_Leader |   PPG_Leader |   RPG_Leader |
+|:-------|--------------:|----------:|--------:|-------------:|-------------:|:------------:|
+| βi     | -88.1045      | 0.0510719 | 1.33466 |     0.684587 |     0.675161 |     0.901754 |
 | e^(βi) |   5.45361e-39 | 1.0524    | 3.79872 |     1.98295  |     1.96435  |     2.46392  |
 
 ##### Formula
@@ -517,3 +521,21 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 - `RPG Leader`: If a player is a Points Per Game Leader (RPG Leader), he would tend to earn **1.46** times more than non-RPG_Leader.
 
 To summarize, the model indicates that NBA player's salary will naturally increase each year by 5.24%. If an NBA player can earn an award such as POTW, APG Leader, PPG Leader, or RPG Leader, his salary would significantly higher than those who don't receive awards. Within these awards, **POTW** mostly reflect a player's value since POTW earns most. Besides, **RPG Leader** also earns much maybe because these players can make use of their body to play basketball and thus their advantage is stable and hard to be replaced by other guys. Therefore, their salaries tend to be higher.
+
+
+##### Prediction of Model
+|   Intercept |    Year |   Potw |   APG_Leader |   PPG_Leader |   RPG_Leader |   Predicted Salary |
+|------------:|--------:|-------:|-------------:|-------------:|-------------:|:------------------:|
+|        1.00 | 2020.00 |   0.00 |         0.00 |         0.00 |         0.00 |         3473656.83 |
+|        1.00 | 2020.00 |   1.00 |         0.00 |         0.00 |         0.00 |        13195447.58 |
+|        1.00 | 2020.00 |   1.00 |         0.00 |         1.00 |         0.00 |        25920463.52 |
+
+We predict three situations based on this model.
+- Predict in year 2020 a player's salary when he doesn't have any awards.
+- Predict in year 2020 a player's salary when he only wins POTW.
+- Predict in year 2020 a player's salary when he wins POTW as well as PPG Leader.
+
+The result shows that the average salary for NBA player is about 3.47 millions if he doesn't win any awards. However, if a player wins at least one time POTW, it means it's predicted salary could be 13.2 millions, which is a lot more higher than non_POTW. What's more, PPG Leader could also indicate a player's higher salary.
+
+
+### Summary
