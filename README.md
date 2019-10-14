@@ -509,3 +509,11 @@ From the QQ plot, we determined that, it is unlikely that the model suffers from
 ![Equation](plot/model_2_formula.png)
 
 ##### Interpretation of Model
+
+- `Year`: Regardless the award, a player would tend to earn **5.24%** more salary than last year.
+- `Potw`: If a player is a Player of the Week (POTW), he would tend to earn **2.8** times more than non-POTW.
+- `APG Leader`: If a player is an Assists Per Game Leader (APG Leader), he would tend to earn **98.3%** more than non-APG_Leader.
+- `PPG Leader`: If a player is a Points Per Game Leader (PPG Leader), he would tend to earn **96.44%** more than non-PPG_Leader.
+- `RPG Leader`: If a player is a Points Per Game Leader (RPG Leader), he would tend to earn **1.46** times more than non-RPG_Leader.
+
+To summarize, the model indicates that NBA player's salary will naturally increase each year by 5.24%. If an NBA player can earn an award such as POTW, APG Leader, PPG Leader, or RPG Leader, his salary would significantly higher than those who don't receive awards. Within these awards, **POTW** mostly reflect a player's value since POTW earns most. Besides, **RPG Leader** also earns much maybe because these players can make use of their body to play basketball and thus their advantage is stable and hard to be replaced by other guys. Therefore, their salaries tend to be higher.
