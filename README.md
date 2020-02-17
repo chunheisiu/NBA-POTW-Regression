@@ -1,5 +1,5 @@
 ## USF MSDS 601: Linear Regression Analysis
-Project: NBA Player of the Week
+Project: NBA Player of the Week & Salary Prediction
 
 ###### Team Members
 * Shirley Li ([@Shirleyiscool](https://github.com/Shirleyiscool))
