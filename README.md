@@ -5,6 +5,10 @@ Project: NBA Player of the Week & Salary Prediction
 * Shirley Li ([@Shirleyiscool](https://github.com/Shirleyiscool))
 * Charles Siu ([@chunheisiu](https://github.com/chunheisiu))
 
+### Introduction
+This group project used various data sources related to NBA players to predict how likely a player is to receive the Play of the Week award, as well as to predict his salary, for a given NBA season. It is part of the coursework for the *MSDS 601 Linear Regression Analysis* class at the University of San Francisco.
+
+### Description
 
 ### Description of Dataset
 Our dataset is a combination of the following datasets with regards to NBA:
