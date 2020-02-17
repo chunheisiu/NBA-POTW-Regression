@@ -6,7 +6,7 @@ Project: NBA Player of the Week & Salary Prediction
 * Charles Siu ([@chunheisiu](https://github.com/chunheisiu))
 
 ### Introduction
-This group project used various data sources related to NBA players to predict how likely a player is to receive the Play of the Week award, as well as to predict his salary, for a given NBA season. It is part of the coursework for the *MSDS 601 Linear Regression Analysis* class at the University of San Francisco.
+The project, in collaboration with the Mission Economic Development Agency, analyzed and visualized various distance and school placement metrics of elementary school students who are clients of MEDA, using publicly available school quality and demographic information combined with proprietary information. It is part of the coursework for the *MSDS 601 Linear Regression Analysis* class at the University of San Francisco.
 
 ### Description
 
